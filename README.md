@@ -43,16 +43,6 @@ npm run preview
 
 The project will automatically build and deploy on every push.
 
-#### Manual Deployment (via Wrangler)
-
-```bash
-# Install Wrangler CLI
-npm install -g wrangler
-
-# Deploy to Cloudflare Pages
-npx wrangler pages deploy dist --project-name=cobe-demo
-```
-
 ### Tech Stack
 
 - **Vite** - Fast build tool and dev server
@@ -71,8 +61,7 @@ npx wrangler pages deploy dist --project-name=cobe-demo
 │   └── vite-env.d.ts   # TypeScript declarations
 ├── package.json        # Dependencies and scripts
 ├── tsconfig.json       # TypeScript configuration
-├── vite.config.ts      # Vite build configuration
-└── wrangler.toml       # Cloudflare Pages configuration (optional)
+└── vite.config.ts      # Vite build configuration
 ```
 
 ### COBE Configuration
