@@ -6,120 +6,70 @@ if (!canvas) {
   throw new Error('Canvas element not found')
 }
 
-// Simple animation state - ONLY phi, theta is FIXED
+// Simple animation state
 let phi = 0
-const theta = 0.3 // Fixed - never changes
 
-// City coordinates [lat, lon]
-const cities = {
-  sf: { location: [37.7749, -122.4194] as [number, number], size: 0.07, color: [0.0, 0.94, 1.0] as [number, number, number] },
-  nyc: { location: [40.7128, -74.0060] as [number, number], size: 0.06, color: [1.0, 0.0, 0.8] as [number, number, number] },
-  london: { location: [51.5074, -0.1278] as [number, number], size: 0.065, color: [0.5, 1.0, 0.3] as [number, number, number] },
-  tokyo: { location: [35.6762, 139.6503] as [number, number], size: 0.075, color: [1.0, 0.5, 0.0] as [number, number, number] },
-  saoPaulo: { location: [-23.5505, -46.6333] as [number, number], size: 0.055, color: [1.0, 0.95, 0.0] as [number, number, number] },
-}
+// City locations matching official demo style
+const markers = [
+  { location: [37.78, -122.44] as [number, number], size: 0.03, id: 'sf' },      // San Francisco
+  { location: [40.71, -74.01] as [number, number], size: 0.03, id: 'nyc' },      // New York
+  { location: [51.51, -0.13] as [number, number], size: 0.03, id: 'london' },    // London
+  { location: [35.68, 139.65] as [number, number], size: 0.03, id: 'tokyo' },    // Tokyo
+]
 
-// Calculate canvas size with device pixel ratio
+// Calculate canvas size
 const updateSize = () => {
-  const rect = canvas.parentElement?.getBoundingClientRect()
-  if (rect) {
+  const container = canvas.parentElement
+  if (container) {
+    const size = Math.min(container.clientWidth, container.clientHeight)
     const dpr = window.devicePixelRatio || 2
-    canvas.width = rect.width * dpr
-    canvas.height = rect.height * dpr
-    canvas.style.width = `${rect.width}px`
-    canvas.style.height = `${rect.height}px`
+    canvas.width = size * dpr
+    canvas.height = size * dpr
+    canvas.style.width = `${size}px`
+    canvas.style.height = `${size}px`
     return { width: canvas.width, height: canvas.height }
   }
-  return { width: 1600, height: 1600 }
+  return { width: 1200, height: 1200 }
 }
 
 const { width: initialWidth, height: initialHeight } = updateSize()
 
-// Create globe with official configuration
+// Create globe with official defaults
 const globe = createGlobe(canvas, {
   devicePixelRatio: 2,
   width: initialWidth,
   height: initialHeight,
   phi: 0,
-  theta: theta,
+  theta: 0.2,
   dark: 0,
   diffuse: 1.2,
   mapSamples: 16000,
   mapBrightness: 6,
-  baseColor: [0.8, 0.8, 0.8],
-  markerColor: [1, 0.5, 1],
+  baseColor: [1, 1, 1],
+  markerColor: [0.2, 0.4, 1],
   glowColor: [1, 1, 1],
-  markers: [
-    { 
-      location: cities.sf.location, 
-      size: cities.sf.size,
-      color: cities.sf.color,
-      id: 'sf'
-    },
-    { 
-      location: cities.nyc.location, 
-      size: cities.nyc.size,
-      color: cities.nyc.color,
-      id: 'nyc'
-    },
-    { 
-      location: cities.london.location, 
-      size: cities.london.size,
-      color: cities.london.color,
-      id: 'london'
-    },
-    { 
-      location: cities.tokyo.location, 
-      size: cities.tokyo.size,
-      color: cities.tokyo.color,
-      id: 'tokyo'
-    },
-    { 
-      location: cities.saoPaulo.location, 
-      size: cities.saoPaulo.size,
-      color: cities.saoPaulo.color,
-      id: 'saoPaulo'
-    },
-  ],
+  markers: markers,
   arcs: [
-    {
-      from: cities.sf.location,
-      to: cities.tokyo.location,
-      color: [0.0, 0.9, 1.0],
-      id: 'sf-tokyo'
-    },
-    {
-      from: cities.nyc.location,
-      to: cities.london.location,
-      color: [0.9, 0.0, 0.9],
-      id: 'nyc-london'
-    },
+    { from: [37.78, -122.44], to: [40.71, -74.01] },    // SF to NYC
+    { from: [40.71, -74.01], to: [51.51, -0.13] },      // NYC to London
   ],
-  arcColor: [1, 0.5, 1],
+  arcColor: [0.3, 0.5, 1],
   arcWidth: 0.5,
-  arcHeight: 0.4,
-  markerElevation: 0.02,
+  arcHeight: 0.3,
   scale: 1,
   offset: [0, 0],
 })
 
-// Simple animation loop - ONLY phi changes, exactly like official demo
+// Simple animation loop - official pattern
 function animate() {
-  phi += 0.003
-  
-  globe.update({
-    phi,
-    width: canvas.width,
-    height: canvas.height,
-  })
-  
+  phi += 0.005
+  globe.update({ phi })
   requestAnimationFrame(animate)
 }
 
-// Start animation
 animate()
 
-// Handle window resize
+// Handle resize
 let resizeTimeout: number
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimeout)
@@ -129,7 +79,7 @@ window.addEventListener('resize', () => {
   }, 100) as unknown as number
 })
 
-// Cleanup on page unload
+// Cleanup
 window.addEventListener('beforeunload', () => {
   globe.destroy()
 })
