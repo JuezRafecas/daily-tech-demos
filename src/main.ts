@@ -6,22 +6,17 @@ if (!canvas) {
   throw new Error('Canvas element not found')
 }
 
-// Animation state
+// Simple animation state - ONLY phi, theta is FIXED
 let phi = 0
-let theta = 0.3
-let isDragging = false
-let lastPointerX = 0
-let lastPointerY = 0
-let pointerX = 0
-let pointerY = 0
+const theta = 0.3 // Fixed - never changes
 
 // City coordinates [lat, lon]
 const cities = {
-  sf: { location: [37.7749, -122.4194] as [number, number], size: 0.08, color: [0.0, 0.94, 1.0] as [number, number, number] },
-  nyc: { location: [40.7128, -74.0060] as [number, number], size: 0.07, color: [1.0, 0.0, 0.8] as [number, number, number] },
-  london: { location: [51.5074, -0.1278] as [number, number], size: 0.075, color: [0.5, 1.0, 0.3] as [number, number, number] },
-  tokyo: { location: [35.6762, 139.6503] as [number, number], size: 0.09, color: [1.0, 0.5, 0.0] as [number, number, number] },
-  saoPaulo: { location: [-23.5505, -46.6333] as [number, number], size: 0.06, color: [1.0, 0.95, 0.0] as [number, number, number] },
+  sf: { location: [37.7749, -122.4194] as [number, number], size: 0.07, color: [0.0, 0.94, 1.0] as [number, number, number] },
+  nyc: { location: [40.7128, -74.0060] as [number, number], size: 0.06, color: [1.0, 0.0, 0.8] as [number, number, number] },
+  london: { location: [51.5074, -0.1278] as [number, number], size: 0.065, color: [0.5, 1.0, 0.3] as [number, number, number] },
+  tokyo: { location: [35.6762, 139.6503] as [number, number], size: 0.075, color: [1.0, 0.5, 0.0] as [number, number, number] },
+  saoPaulo: { location: [-23.5505, -46.6333] as [number, number], size: 0.055, color: [1.0, 0.95, 0.0] as [number, number, number] },
 }
 
 // Calculate canvas size with device pixel ratio
@@ -40,13 +35,13 @@ const updateSize = () => {
 
 const { width: initialWidth, height: initialHeight } = updateSize()
 
-// Create globe with official-like configuration
+// Create globe with official configuration
 const globe = createGlobe(canvas, {
   devicePixelRatio: 2,
   width: initialWidth,
   height: initialHeight,
   phi: 0,
-  theta: 0.3,
+  theta: theta,
   dark: 0,
   diffuse: 1.2,
   mapSamples: 16000,
@@ -99,36 +94,21 @@ const globe = createGlobe(canvas, {
       color: [0.9, 0.0, 0.9],
       id: 'nyc-london'
     },
-    {
-      from: cities.london.location,
-      to: cities.tokyo.location,
-      color: [0.5, 1.0, 0.4],
-      id: 'london-tokyo'
-    },
   ],
   arcColor: [1, 0.5, 1],
   arcWidth: 0.5,
   arcHeight: 0.4,
   markerElevation: 0.02,
-  scale: 1.1,
+  scale: 1,
   offset: [0, 0],
 })
 
-// Animation loop using requestAnimationFrame (official COBE API)
+// Simple animation loop - ONLY phi changes, exactly like official demo
 function animate() {
-  if (!isDragging) {
-    // Continuous auto-rotation
-    phi += 0.005
-    
-    // Subtle parallax based on pointer position
-    const parallaxY = (pointerY - 0.5) * 0.1
-    theta = 0.3 + parallaxY
-  }
+  phi += 0.003
   
-  // Update globe with new phi/theta
   globe.update({
     phi,
-    theta,
     width: canvas.width,
     height: canvas.height,
   })
@@ -139,46 +119,7 @@ function animate() {
 // Start animation
 animate()
 
-// Pointer interactions for drag
-canvas.addEventListener('pointerenter', () => {
-  canvas.style.opacity = '1'
-})
-
-canvas.addEventListener('pointerleave', () => {
-  canvas.style.opacity = '0.95'
-  isDragging = false
-})
-
-canvas.addEventListener('pointermove', (e) => {
-  const rect = canvas.getBoundingClientRect()
-  pointerX = (e.clientX - rect.left) / rect.width
-  pointerY = (e.clientY - rect.top) / rect.height
-  
-  if (isDragging) {
-    const deltaX = e.clientX - lastPointerX
-    const deltaY = e.clientY - lastPointerY
-    
-    phi += deltaX * 0.01
-    theta = Math.max(0, Math.min(Math.PI, theta - deltaY * 0.01))
-    
-    lastPointerX = e.clientX
-    lastPointerY = e.clientY
-  }
-})
-
-canvas.addEventListener('pointerdown', (e) => {
-  isDragging = true
-  lastPointerX = e.clientX
-  lastPointerY = e.clientY
-  canvas.style.cursor = 'grabbing'
-})
-
-canvas.addEventListener('pointerup', () => {
-  isDragging = false
-  canvas.style.cursor = 'grab'
-})
-
-// Handle window resize with globe.update()
+// Handle window resize
 let resizeTimeout: number
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimeout)
