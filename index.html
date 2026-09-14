@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COBE — 5KB WebGL Globe</title>
+    <meta name="description" content="COBE: The 5KB WebGL globe library" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>COBE</h1>
+        <p class="tagline">The 5KB WebGL Globe</p>
+      </header>
+
+      <main>
+        <div class="globe-wrapper">
+          <canvas id="globe"></canvas>
+          
+          <!-- Simple city labels with CSS anchors -->
+          <div class="label" data-id="sf">San Francisco</div>
+          <div class="label" data-id="nyc">New York</div>
+          <div class="label" data-id="london">London</div>
+          <div class="label" data-id="tokyo">Tokyo</div>
+        </div>
+      </main>
+
+      <footer>
+        <p>
+          <a href="https://github.com/shuding/cobe" target="_blank" rel="noopener">GitHub</a>
+          ·
+          <a href="https://www.npmjs.com/package/cobe" target="_blank" rel="noopener">npm</a>
+        </p>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

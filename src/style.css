@@ -1,0 +1,170 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #ffffff;
+  color: #111827;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  font-size: 1.125rem;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+/* Main content */
+main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.globe-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#globe {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Simple labels with CSS anchor positioning */
+.label {
+  position: absolute;
+  padding: 0.25rem 0.625rem;
+  background: #111827;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.label[data-id="sf"] {
+  position-anchor: --cobe-sf;
+  bottom: anchor(top);
+  left: anchor(center);
+  transform: translate(-50%, -6px);
+  opacity: var(--cobe-visible-sf, 0);
+}
+
+.label[data-id="nyc"] {
+  position-anchor: --cobe-nyc;
+  bottom: anchor(top);
+  left: anchor(center);
+  transform: translate(-50%, -6px);
+  opacity: var(--cobe-visible-nyc, 0);
+}
+
+.label[data-id="london"] {
+  position-anchor: --cobe-london;
+  bottom: anchor(top);
+  left: anchor(center);
+  transform: translate(-50%, -6px);
+  opacity: var(--cobe-visible-london, 0);
+}
+
+.label[data-id="tokyo"] {
+  position-anchor: --cobe-tokyo;
+  bottom: anchor(top);
+  left: anchor(center);
+  transform: translate(-50%, -6px);
+  opacity: var(--cobe-visible-tokyo, 0);
+}
+
+/* Footer */
+footer {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+footer a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+  }
+
+  .globe-wrapper {
+    max-width: 500px;
+  }
+
+  .label {
+    font-size: 0.6875rem;
+    padding: 0.2rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
+  .globe-wrapper {
+    max-width: 100%;
+  }
+}
