@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COBE - 5KB WebGL Globe</title>
+    <meta name="description" content="Interactive demo of COBE, a lightweight 5KB WebGL globe library" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="content">
+        <h1>COBE</h1>
+        <p>Interactive 5KB WebGL Globe Library</p>
+      </div>
+      <canvas id="globe"></canvas>
+      
+      <!-- CSS-anchored labels for markers -->
+      <div class="marker-label" data-city="sf">
+        <div class="label-content">San Francisco</div>
+      </div>
+      <div class="marker-label" data-city="tokyo">
+        <div class="label-content">Tokyo</div>
+      </div>
+      <div class="marker-label" data-city="london">
+        <div class="label-content">London</div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
