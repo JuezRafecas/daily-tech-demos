@@ -3,112 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OpenGeometry — CAD Kernel for the Web</title>
-    <meta name="description" content="OpenGeometry: Browser-native CAD kernel powered by Rust and WebAssembly" />
+    <title>LTX — The world model</title>
+    <meta name="description" content="LTX builds open world models that give you full control" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>OpenGeometry</h1>
-        <p class="tagline">CAD kernel for the web</p>
-      </header>
-
-      <main>
-        <div id="app"></div>
-        
-        <div class="controls">
-          <div class="control-panel">
-            <div class="control-section">
-              <label>Shape Type</label>
-              <select id="shape-selector">
-                <option value="cuboid">Cuboid</option>
-                <option value="cylinder">Cylinder</option>
-                <option value="sphere">Sphere</option>
-                <option value="wedge">Wedge</option>
-              </select>
-            </div>
-
-            <div class="control-section" id="cuboid-controls">
-              <label>Width: <span id="width-value">2.0</span></label>
-              <input type="range" id="width-slider" min="0.5" max="4" step="0.1" value="2" />
-              
-              <label>Height: <span id="height-value">1.5</span></label>
-              <input type="range" id="height-slider" min="0.5" max="4" step="0.1" value="1.5" />
-              
-              <label>Depth: <span id="depth-value">1.5</span></label>
-              <input type="range" id="depth-slider" min="0.5" max="4" step="0.1" value="1.5" />
-            </div>
-
-            <div class="control-section" id="cylinder-controls" style="display: none;">
-              <label>Radius: <span id="radius-value">0.8</span></label>
-              <input type="range" id="radius-slider" min="0.3" max="2" step="0.1" value="0.8" />
-              
-              <label>Height: <span id="cyl-height-value">2.0</span></label>
-              <input type="range" id="cyl-height-slider" min="0.5" max="4" step="0.1" value="2" />
-              
-              <label>Segments: <span id="segments-value">32</span></label>
-              <input type="range" id="segments-slider" min="8" max="64" step="4" value="32" />
-            </div>
-
-            <div class="control-section" id="sphere-controls" style="display: none;">
-              <label>Radius: <span id="sphere-radius-value">1.0</span></label>
-              <input type="range" id="sphere-radius-slider" min="0.3" max="2" step="0.1" value="1" />
-              
-              <label>Width Segments: <span id="width-segments-value">24</span></label>
-              <input type="range" id="width-segments-slider" min="8" max="48" step="4" value="24" />
-              
-              <label>Height Segments: <span id="height-segments-value">16</span></label>
-              <input type="range" id="height-segments-slider" min="6" max="32" step="2" value="16" />
-            </div>
-
-            <div class="control-section" id="wedge-controls" style="display: none;">
-              <label>Width: <span id="wedge-width-value">2.0</span></label>
-              <input type="range" id="wedge-width-slider" min="0.5" max="4" step="0.1" value="2" />
-              
-              <label>Height: <span id="wedge-height-value">1.5</span></label>
-              <input type="range" id="wedge-height-slider" min="0.5" max="4" step="0.1" value="1.5" />
-              
-              <label>Depth: <span id="wedge-depth-value">1.5</span></label>
-              <input type="range" id="wedge-depth-slider" min="0.5" max="4" step="0.1" value="1.5" />
-            </div>
-
-            <div class="control-section">
-              <label>Color</label>
-              <div class="color-picker">
-                <button class="color-btn" data-color="0x10b981" style="background: #10b981"></button>
-                <button class="color-btn" data-color="0x3b82f6" style="background: #3b82f6"></button>
-                <button class="color-btn" data-color="0xf97316" style="background: #f97316"></button>
-                <button class="color-btn" data-color="0x8b5cf6" style="background: #8b5cf6"></button>
-                <button class="color-btn" data-color="0xec4899" style="background: #ec4899"></button>
-              </div>
-            </div>
-
-            <div class="control-section">
-              <label class="checkbox-label">
-                <input type="checkbox" id="outline-toggle" checked />
-                <span>Show Outline</span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      <footer>
-        <p>
-          <a href="https://opengeometry.io/" target="_blank" rel="noopener">OpenGeometry.io</a>
-          ·
-          <a href="https://docs.opengeometry.io/" target="_blank" rel="noopener">Docs</a>
-          ·
-          <a href="https://www.npmjs.com/package/opengeometry" target="_blank" rel="noopener">npm</a>
-          ·
-          <a href="https://github.com/OpenGeometry-io/OpenGeometry" target="_blank" rel="noopener">GitHub</a>
-        </p>
-      </footer>
-    </div>
-
-    <script type="module" src="/src/main.ts"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

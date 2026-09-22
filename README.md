@@ -2,18 +2,17 @@
 
 Daily tech demos from X bookmarks, with Cloudflare Pages preview deploys.
 
-## Current Demo: COBE WebGL Globe
+## Current Demo: Video States — Cinematic Click-Driven Video Website
 
-An interactive demo of [COBE](https://github.com/shuding/cobe) by [@shuding](https://github.com/shuding) — a lightweight ~5KB WebGL globe library with zero dependencies.
+An interactive demo based on [Amir Mušić's Video States pack](https://github.com/amirmushichge/video-states-website) — a cinematic fashion video experience with four click-driven state transitions.
 
 ### Features
 
-- **Full-viewport rotating WebGL globe** with smooth animations
-- **Multiple city markers** (San Francisco, NYC, London, Tokyo, São Paulo) with varied sizes and colors
-- **Interactive arcs** connecting major cities across the globe
-- **CSS-anchored labels** using COBE's CSS anchor positioning API (`--cobe-{id}` variables)
-- **Premium dark theme** with gradient text and subtle glow effects
-- **Fully responsive** design optimized for desktop
+- **Four interactive controls** (Scene, Lighting, Clothing, Cast) that play prepared forward/reverse video clips
+- **Seam-safe video playback** with proper frame holding and state management
+- **Glass UI design** with Manrope typography and restrained blue glass materials
+- **Fully responsive** layout optimized for desktop and mobile
+- **No runtime generation** — all transitions use pre-rendered LTX video clips
 
 ### Local Development
 
@@ -46,42 +45,32 @@ The project will automatically build and deploy on every push.
 ### Tech Stack
 
 - **Vite** - Fast build tool and dev server
+- **React** - Component-based UI
 - **TypeScript** - Type safety
-- **COBE** - WebGL globe rendering (~5KB)
-- **CSS Anchor Positioning** - Modern CSS for marker labels
+- **Manrope** - Typography from Google Fonts
+- **LTX-generated video** - Pre-rendered transitions from LTX Studio
 
 ### Project Structure
 
 ```
 .
-├── index.html          # Entry HTML with canvas and marker labels
+├── index.html          # Entry HTML
+├── public/
+│   ├── ltx-studio-logo.svg
+│   └── retake/         # Video clips and reference images
 ├── src/
-│   ├── main.ts         # Globe initialization and configuration
-│   ├── style.css       # Dark theme and CSS-anchored label styles
+│   ├── main.tsx        # React app with video player logic
+│   ├── style.css       # Glass UI and responsive styles
 │   └── vite-env.d.ts   # TypeScript declarations
 ├── package.json        # Dependencies and scripts
 ├── tsconfig.json       # TypeScript configuration
 └── vite.config.ts      # Vite build configuration
 ```
 
-### COBE Configuration
+### Attribution
 
-The demo showcases key COBE features:
-
-- **Auto-rotation** via `onRender` callback (phi increment)
-- **Custom marker colors** and sizes for each city
-- **Multiple arcs** with custom colors between cities
-- **CSS anchor positioning** for labels bound to marker IDs
-- **Visibility variables** (`--cobe-visible-{id}`) for smooth fade transitions
-- **Dark mode optimized** with tuned `mapBrightness` and `glowColor`
-
-### Browser Support
-
-Requires a browser with:
-- WebGL support
-- CSS Anchor Positioning (Chrome 125+, Edge 125+)
-  - For other browsers, labels won't position correctly but the globe still works
+Video assets and design concept by [Amir Mušić](https://github.com/amirmushichge). Original X bookmark: https://x.com/AmirMushich/status/2097673877539238021
 
 ### License
 
-Demo code is MIT licensed. COBE library is also MIT licensed.
+Demo code is MIT licensed. Video assets are licensed under CC BY 4.0 (see source pack).
